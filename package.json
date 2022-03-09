@@ -1,0 +1,27 @@
+{
+  "name": "products_api",
+  "version": "1.0.0",
+  "description": "SDC Products API",
+  "main": "server/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yoshi-Logistics/PRODUCTS_API.git"
+  },
+  "author": "Kat Bakalova",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yoshi-Logistics/PRODUCTS_API/issues"
+  },
+  "homepage": "https://github.com/Yoshi-Logistics/PRODUCTS_API#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "pg": "^8.7.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}

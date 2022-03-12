@@ -14,7 +14,7 @@ module.exports = {
     },
 
     getOne: (req, res) => {
-      models.products.getOne((err, results) => {
+      models.products.getOne(req.params.product_id, (err, results) => {
         if (err) {
           res.status(500).send(err);
         } else {

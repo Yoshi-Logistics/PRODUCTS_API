@@ -10,17 +10,11 @@ app.get('/loaderio-fff75b162192bedf66f71ed992fdae08.txt', (req,res) => {
   res.sendFile(path.resolve('loaderio-fff75b162192bedf66f71ed992fdae08.txt'))
 });
 
-app.get('/products', (req, res) => {
-  controllers.products.getAll(req, res);
-});
+app.get('/products', controllers.products.getAll);
 
-app.get('/products/:product_id', (req, res) => {
-  controllers.products.getOne(req, res);
-});
+app.get('/products/:product_id', controllers.products.getOne);
 
-app.get('/products/:product_id/styles', (req, res) => {
-  controllers.styles.get(req, res);
-});
+app.get('/products/:product_id/styles', controllers.styles.get);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

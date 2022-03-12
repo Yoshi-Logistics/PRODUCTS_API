@@ -9,7 +9,7 @@ export const options = {
   duration: '15s',
 }
 
-const oneProduct = 'http://localhost:3000/products/1'
+const oneProduct = `http://localhost:3000/products/${Math.floor(Math.random() * 1000000)}`
 
 export default function () {
   const res = http.get(oneProduct);

@@ -15,14 +15,31 @@ module.exports = {
     getAll: function (callback) {
       var query = "SELECT * FROM products";
       pool.query(query, function(err, results){
-        callback(err, results);
+        callback(err, results.rows);
       });
     },
 
-    getOne: function (callback) {
-      var query = "SELECT products.*, json_agg(json_build_object('feature', features.feature, 'value', features.value)) AS features FROM products JOIN features ON features.product_id=products.id WHERE products.id=1 GROUP BY products.id";
-      pool.query(query, function(err, results){
-        callback(err, results);
+    getOne: function (id, callback) {
+      var query = `SELECT products.*,
+       json_agg(
+         json_build_object(
+           'feature', features.feature, 'value', features.value
+           )) AS features FROM products JOIN features
+            ON features.product_id=products.id WHERE products.id=$1 GROUP BY products.id`;
+      var query2 = `select json_build_object(
+        'id', products.id,
+        'name', products.name,
+        'slogan', products.slogan,
+        'description', products.description,
+        'category', products.category,
+        'default_price', products.default_price,
+        'features', (SELECT json_agg(row_to_json(features)) FROM (SELECT feature, value FROM "features" where product_id=$1) AS features
+        ))
+        from products
+        WHERE products.id=$1`;
+      let queryArg = [id];
+      pool.query(query2, queryArg, function(err, results){
+        callback(err, results.rows);
       });
     }
   },
@@ -50,8 +67,6 @@ module.exports = {
           )
         )
         `;
-
-
 
       pool.query(query, function(err, results){
         callback(err, results);

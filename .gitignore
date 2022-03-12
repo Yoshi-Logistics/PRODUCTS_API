@@ -1,3 +1,7 @@
 csv
 node_modules
 package-lock.json
+config.js
+db.dump
+archivedDb.dump
+dexters_laboratory.sql

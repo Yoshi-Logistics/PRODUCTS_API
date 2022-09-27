@@ -4,9 +4,11 @@ const port = 3000
 var controllers = require('./controllers');
 const path = require('path');
 
-//connect to frontend here: (?)
 //app.use(express.static('client/dist'));
-app.get('/loaderio-fff75b162192bedf66f71ed992fdae08.txt', (req,res) => {
+// app.get('/', (req, res) => {
+//   res.send('hello buddy!');
+// })
+app.get('/loaderio-50b9596098f417c2fd2a8f20587a9185/', (req,res) => {
   res.sendFile(path.resolve('loaderio-fff75b162192bedf66f71ed992fdae08.txt'))
 });
 

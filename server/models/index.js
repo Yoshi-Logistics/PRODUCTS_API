@@ -1,12 +1,12 @@
 const { Pool } = require('pg');
-const { config } = require('../../config.js');
+const { localConfig } = require('../../config.js');
 
 const pool = new Pool({
-  user: config.user,
-  host: config.host,
-  database: config.database,
-  password: config.password,
-  port: config.port,
+  user: localConfig.user,
+  host: localConfig.host,
+  database: localConfig.database,
+  password: localConfig.password,
+  port: localConfig.port,
 });
 
 module.exports = {
@@ -19,13 +19,13 @@ module.exports = {
       });
     },
 
-    getOne: function (id, callback) {
+    getOne: function (req, callback) {
       var query = `SELECT products.*,
        json_agg(
          json_build_object(
            'feature', features.feature, 'value', features.value
            )) AS features FROM products JOIN features
-            ON features.product_id=products.id WHERE products.id=$1 GROUP BY products.id`;
+            ON features.product_id=products.id WHERE products.id = ${req.params.product_id || 1} GROUP BY products.id`;
       var query2 = `select json_build_object(
         'id', products.id,
         'name', products.name,
@@ -37,8 +37,8 @@ module.exports = {
         ))
         from products
         WHERE products.id=$1`;
-      let queryArg = [id];
-      pool.query(query2, queryArg, function(err, results){
+      //let queryArg = [req.query.product_id];
+      pool.query(query, function(err, results){
         callback(err, results.rows);
       });
     }

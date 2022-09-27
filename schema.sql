@@ -26,51 +26,53 @@ CREATE TABLE features (
 );
 
 
+
 -- ALTER TABLE features ADD CONSTRAINT features_pkey PRIMARY KEY (id);
 
-CREATE TABLE styles (
- id BIGSERIAL PRIMARY KEY,
- productId INTEGER,
- "name" VARCHAR,
- sale_price DECIMAL,
- original_price DECIMAL,
- default_style BYTEA
-);
+-- CREATE TABLE styles (
+--  id BIGSERIAL PRIMARY KEY,
+--  productId INTEGER,
+--  "name" VARCHAR,
+--  sale_price DECIMAL,
+--  original_price DECIMAL,
+--  default_style BYTEA
+-- );
 
 
 -- ALTER TABLE styles ADD CONSTRAINT styles_pkey PRIMARY KEY (id);
 
-CREATE TABLE photos (
- id BIGSERIAL PRIMARY KEY,
- styleId INTEGER,
- "url" VARCHAR,
- thumbnail_url VARCHAR
-);
+-- CREATE TABLE photos (
+--  id BIGSERIAL PRIMARY KEY,
+--  styleId INTEGER,
+--  "url" VARCHAR,
+--  thumbnail_url VARCHAR
+-- );
 
 
 -- ALTER TABLE photos ADD CONSTRAINT photos_pkey PRIMARY KEY (id);
 
-CREATE TABLE skus (
- id BIGSERIAL PRIMARY KEY,
- styleId INTEGER,
- size VARCHAR,
- quantity INTEGER
-);
+-- CREATE TABLE skus (
+--  id BIGSERIAL PRIMARY KEY,
+--  styleId INTEGER,
+--  size VARCHAR,
+--  quantity INTEGER
+-- );
 
 
 -- ALTER TABLE skus ADD CONSTRAINT skus_pkey PRIMARY KEY (id);
 
-CREATE TABLE related (
- id BIGSERIAL PRIMARY KEY,
- current_product_id INTEGER,
- related_product_id INTEGER
-);
+-- CREATE TABLE related (
+--  id BIGSERIAL PRIMARY KEY,
+--  current_product_id INTEGER,
+--  related_product_id INTEGER
+-- );
 
 
 -- ALTER TABLE related ADD CONSTRAINT related_pkey PRIMARY KEY (id);
 
 ALTER TABLE features ADD CONSTRAINT features_product_id_fkey FOREIGN KEY (product_id) REFERENCES products(id);
-ALTER TABLE styles ADD CONSTRAINT styles_productId_fkey FOREIGN KEY (productId) REFERENCES products(id);
-ALTER TABLE photos ADD CONSTRAINT photos_styleId_fkey FOREIGN KEY (styleId) REFERENCES styles(id);
-ALTER TABLE skus ADD CONSTRAINT skus_styleId_fkey FOREIGN KEY (styleId) REFERENCES styles(id);
-ALTER TABLE related ADD CONSTRAINT related_current_product_id_fkey FOREIGN KEY (current_product_id) REFERENCES products(id);
+-- ALTER TABLE styles ADD CONSTRAINT styles_productId_fkey FOREIGN KEY (productId) REFERENCES products(id);
+-- ALTER TABLE photos ADD CONSTRAINT photos_styleId_fkey FOREIGN KEY (styleId) REFERENCES styles(id);
+-- ALTER TABLE skus ADD CONSTRAINT skus_styleId_fkey FOREIGN KEY (styleId) REFERENCES styles(id);
+-- ALTER TABLE related ADD CONSTRAINT related_current_product_id_fkey FOREIGN KEY (current_product_id) REFERENCES products(id);
+CREATE INDEX product_id_idx ON features (product_id);
